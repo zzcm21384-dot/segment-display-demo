@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f7f6">
+<title>八段数码管 · 电子实验台</title>
+<style>
+:root{--paper:#f5f7f6;--white:#fff;--ink:#21312d;--muted:#73817a;--line:#dce4df;--green:#246b52;--green-soft:#e8f1eb;--red:#ff493e;--mono:Consolas,"Courier New",monospace;--body:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.6 var(--body);letter-spacing:0}button,input,select{font:inherit}button{cursor:pointer;color:inherit}button,input,select{outline-offset:4px}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green)}button{border:1px solid var(--line);background:var(--white);border-radius:5px;transition:background .16s,border-color .16s,transform .16s}button:hover{border-color:#9eafa4;background:#f1f5f2}button:active{transform:translateY(1px)}button:disabled{opacity:.35;cursor:default;transform:none}button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}h1,h2,h3,p{margin:0}svg{display:block}button[aria-pressed=true]{color:var(--green);border-color:#a6c6b3;background:var(--green-soft)}.mono{font-family:var(--mono)}.muted{color:var(--muted)}.small{font-size:12px}.icon-button{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;padding:0}.command{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:7px 15px}.primary{background:var(--green);border-color:var(--green);color:white}.primary:hover{background:#19543f;border-color:#19543f}.sprite{position:absolute;width:0;height:0;overflow:hidden}.app{max-width:1480px;margin:auto;padding:0 48px}.topbar{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:15px}.brand-mark{width:28px;height:32px;color:var(--green)}.top-meta{display:flex;gap:20px;align-items:center;font-size:11px;color:var(--muted)}.online{display:inline-flex;align-items:center;gap:7px}.online:before{content:"";width:6px;height:6px;border-radius:50%;background:#4d8963}.intro{padding:29px 0 24px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.eyebrow{font:11px/1.4 var(--mono);color:var(--green);margin-bottom:8px}.intro h1{font-size:30px;line-height:1.4;font-weight:600}.intro p{color:var(--muted);font-size:13px;margin-top:6px}.intro-actions{display:flex;align-items:center;gap:10px;padding-bottom:3px}.bench{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:250px minmax(280px,1fr) 268px;background:white}.input-panel{padding:25px 24px 24px 0;background:var(--paper);border-right:1px solid var(--line)}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:18px}.section-heading h2{font-size:15px;font-weight:600}.section-index{font:11px var(--mono);color:#96a19b}.field-label{font-size:12px;color:var(--muted);display:block;margin-bottom:8px}.number-field{height:80px;background:white;border:1px solid #bacbc0;border-radius:5px;display:flex;align-items:center;position:relative;box-shadow:0 0 0 3px #eaf0eb}.number-field input{width:100%;height:100%;border:0;background:transparent;padding:0 17px;color:var(--ink);font:48px var(--mono);outline-offset:2px;min-width:0}.number-field .range-label{position:absolute;right:17px;top:14px;color:#99a79f;font:11px var(--mono);pointer-events:none}.field-error{min-height:26px;padding-top:6px;font-size:11px;color:#b82c27}.number-field.invalid{border-color:#c64035;box-shadow:0 0 0 3px #fae9e6}.keypad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:7px 0 23px}.digit-key{height:38px;font:16px var(--mono);padding:0}.subsection{padding-top:19px;border-top:1px solid var(--line);margin-top:20px}.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px}.switch{width:34px;height:19px;border-radius:12px;background:#d5ded8;border:0;padding:3px;display:flex;align-items:center}.switch:before{content:"";height:13px;width:13px;background:white;border-radius:50%;box-shadow:0 1px 2px #0002;transition:transform .2s}.switch[aria-checked=true]{background:var(--green)}.switch[aria-checked=true]:before{transform:translateX(15px)}.segmented{display:flex;background:#eaf0ec;padding:3px;border-radius:5px;gap:3px}.segmented button{border:0;background:transparent;flex:1;white-space:nowrap;min-height:33px;font-size:12px;padding:6px 9px}.segmented button[aria-pressed=true]{background:white;color:var(--green);box-shadow:0 1px 3px #1d352313}.polarity-note{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.8}.polarity-note strong{font-weight:500;color:var(--green)}.control-footer{margin-top:23px;display:flex;gap:8px}.control-footer .command{flex:1;font-size:12px;padding:6px;min-width:0}.display-panel{min-width:0;position:relative;display:flex;flex-direction:column}.viewbar{height:65px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:8px}.view-tabs{display:flex;height:100%;gap:22px;min-width:0}.view-tab{border:0;background:transparent;border-radius:0;padding:0;font-size:12px;border-bottom:2px solid transparent;white-space:nowrap}.view-tab[aria-selected=true]{border-bottom-color:var(--green);color:var(--green);font-weight:600}.view-tab:hover{background:transparent}.display-status{display:flex;align-items:center;gap:6px;font-size:10px;white-space:nowrap}.status-led{height:5px;width:5px;border-radius:50%;background:#4a8b65}.view-stage{position:relative;flex:1;min-height:371px;display:flex;align-items:center;justify-content:center;overflow:hidden;background-image:radial-gradient(#cbd6ce 0.7px,transparent .7px);background-size:18px 18px}.device-view{display:flex;align-items:center;justify-content:center;width:100%;min-height:371px;position:relative;padding:6px 50px 18px}.device{width:216px;aspect-ratio:216/304;position:relative;filter:drop-shadow(0 15px 14px #253c2319);flex:none}.device-svg{width:100%;height:100%;overflow:visible}.segment{fill:#402523;stroke:#55302b;stroke-width:.7;cursor:pointer;transition:fill .18s,filter .18s,stroke .18s}.segment.on{fill:var(--red);stroke:#ff7468;filter:url(#led-glow)}.segment:hover{stroke:#ffc6ae;stroke-width:2}.segment-label{font:12px var(--mono);fill:#8f9c96;pointer-events:none}.device-top{position:absolute;left:18px;top:18px;color:#92a69a;font:9px var(--mono)}.device-bottom{position:absolute;bottom:21px;left:18px;color:#6a7e72;font:8px var(--mono)}.callout{position:absolute;font-size:10px;line-height:1.8;color:var(--muted)}.callout-a{left:26px;top:72px}.callout-dp{right:22px;bottom:49px}.callout-a:after{content:"";display:block;width:45px;border-bottom:1px solid #b3c6b9;margin-top:5px}.callout-dp:before{content:"";display:block;width:35px;border-top:1px solid #b3c6b9;margin-bottom:5px}.display-readout{padding:16px 24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:30px;min-height:66px;background:white}.readout-item{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--muted)}.readout-item strong{color:var(--ink);font:17px var(--mono)}.output-panel{padding:25px 0 18px 23px;background:var(--paper);border-left:1px solid var(--line)}.output-heading{margin-bottom:12px}.table-head,.segment-row{display:grid;grid-template-columns:42px 1fr 42px 38px;align-items:center;gap:4px}.table-head{font-size:10px;color:var(--muted);padding-bottom:9px;border-bottom:1px solid var(--line)}.table-head span:nth-child(3),.table-head span:last-child{text-align:center}.segment-row{height:35px;border-bottom:1px solid #e5eae6;font-size:11px}.segment-name{font:12px var(--mono);display:flex;align-items:center;gap:7px}.segment-dot{width:4px;height:4px;background:#c8d1cb;border-radius:50%}.segment-row.lit .segment-dot{background:var(--red);box-shadow:0 0 5px #ff493e66}.pin-state{color:#9aa59e;font:10px var(--mono)}.segment-row.lit .pin-state{color:var(--green)}.level{text-align:center;font:12px var(--mono);color:#9ba69f}.level.high{color:var(--green);font-weight:bold}.segment-row .switch{width:28px;height:16px;padding:3px;justify-self:end}.segment-row .switch:before{width:10px;height:10px}.segment-row .switch[aria-checked=true]:before{transform:translateX(12px)}.code-block{margin-top:18px}.code-title{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:8px}.bit-labels,.bits{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;text-align:center;font-family:var(--mono)}.bit-labels{font-size:9px;color:#8c9a91;margin-bottom:4px}.bit{padding:5px 0;border-radius:2px;background:#e6ece7;color:#96a099;font-size:12px}.bit.high{background:#dcebe0;color:var(--green)}.hex-line{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:10px;color:var(--muted)}.hex-line strong{font:19px var(--mono);color:var(--green)}.demo-section{padding:25px 0 28px}.demo-header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px}.demo-title{display:flex;align-items:baseline;gap:12px}.demo-title h2{font-size:16px;font-weight:600}.demo-title span{font-size:11px;color:var(--muted)}.demo-mode button{min-height:29px;padding:4px 11px;font-size:11px}.pipeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}.phase{border-top:2px solid var(--line);padding:17px 20px 15px 0;position:relative;min-height:115px}.phase:not(:first-child){padding-left:25px}.phase:after{content:"";position:absolute;right:5px;top:25px;width:6px;height:6px;border-top:1px solid #c1cdc3;border-right:1px solid #c1cdc3;transform:rotate(45deg)}.phase:last-child:after{display:none}.phase.active{border-color:var(--green)}.phase.done{border-color:#9dbca7}.phase-top{display:flex;gap:11px;align-items:center;margin-bottom:7px}.phase-num{font:11px var(--mono);color:#9aaba0}.phase.active .phase-num{color:var(--green)}.phase h3{font-size:12px;font-weight:600}.phase p{font-size:11px;color:var(--muted);line-height:1.9;min-height:21px}.phase-value{margin-top:5px;font:12px var(--mono);color:var(--ink);overflow-wrap:anywhere}.phase.active .phase-value{color:var(--green)}.player{margin-top:9px;padding:14px 18px;background:#ebf0ed;border:1px solid #dde6df;border-radius:5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.player .icon-button{background:transparent;border-color:#cad8cd}.player .play{background:var(--green);color:white;border-color:var(--green)}.player-track{flex:1;display:flex;align-items:center;gap:12px;min-width:140px;margin-left:8px}.player-track input{width:100%;min-width:50px}.player-position{font:11px var(--mono);color:var(--green);white-space:nowrap;min-width:45px}input[type=range]{accent-color:var(--green);height:4px;cursor:pointer}.speed-control{display:flex;align-items:center;gap:8px;font-size:11px;margin-left:15px}.speed-control select{border:0;background:transparent;color:var(--ink);font:12px var(--mono);padding:4px}.principle-note{padding:21px 0 25px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:55px}.note-title{font-size:12px;font-weight:600;margin-bottom:5px}.principle-note p{font-size:11px;color:var(--muted);line-height:1.9}.note-emphasis{color:var(--green)}footer{display:flex;justify-content:space-between;padding:12px 0 20px;color:#8c9a92;font-size:10px;border-top:1px solid var(--line)}.circuit-view{width:100%;padding:14px 21px 8px;align-self:stretch}.circuit-view[hidden],.device-view[hidden]{display:none}.circuit-svg{width:100%;max-height:340px;margin:auto;overflow:visible;font-family:var(--mono)}.circuit-wire{stroke:#c7d4ca;fill:none;stroke-width:1.6}.circuit-current{fill:none;stroke:var(--green);stroke-width:2;stroke-dasharray:5 7;opacity:0}.circuit-branch.on .circuit-current{opacity:1;animation:current 1s linear infinite}.circuit-view.anode .circuit-current{animation-direction:reverse}.circuit-led{fill:#e2e8e2;stroke:#b4c1b7;stroke-width:1.4}.circuit-branch.on .circuit-led{fill:#ff6758;stroke:#ed4c42}.circuit-text{font-size:11px;fill:#718279}.circuit-branch.on .pin-text{fill:var(--green)}.circuit-caption{color:var(--muted);font-size:10px;text-align:center;margin-top:7px}.hover-label{position:absolute;z-index:3;background:#21312d;color:white;padding:5px 10px;border-radius:4px;font-size:10px;pointer-events:none;opacity:0;left:50%;bottom:6px;transform:translateX(-50%);white-space:nowrap}.hover-label.show{opacity:1}.fullscreen .app{max-width:1600px}.fullscreen .intro{padding-top:18px}.fullscreen .view-stage,.fullscreen .device-view{min-height:420px}.fullscreen .device{width:242px}.fullscreen .principle-note, .fullscreen footer{display:none}@keyframes current{to{stroke-dashoffset:-24}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+@media(min-width:1500px){.app{padding:0 65px}.intro{padding-top:34px;padding-bottom:30px}.view-stage,.device-view{min-height:410px}.device{width:235px}.segment-row{height:38px}.bench{grid-template-columns:270px minmax(300px,1fr) 280px}}
+@media(max-width:1100px){.app{padding:0 26px}.bench{grid-template-columns:215px minmax(250px,1fr) 230px}.input-panel{padding-right:18px}.output-panel{padding-left:18px}.viewbar{padding:0 17px}.callout{display:none}.device-view{padding-left:24px;padding-right:24px}.view-tabs{gap:16px}.display-status{font-size:9px}.phase:not(:first-child){padding-left:15px}.phase{padding-right:15px}.player{padding:12px}}
+@media(max-width:800px){.app{padding:0 22px}.topbar{height:62px}.top-meta .mono{display:none}.intro h1{font-size:25px}.intro{align-items:center;padding:23px 0}.intro p{font-size:11px}.intro-actions .primary{font-size:12px;padding:7px 10px}.bench{grid-template-columns:195px minmax(240px,1fr)}.output-panel{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);padding:19px 0;display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.output-heading{grid-column:1/-1}.output-table{grid-row:2/4}.code-block{margin-top:0;align-self:center}.hex-line{margin-top:15px}.display-readout{gap:17px}.demo-title span{display:none}.phase p{font-size:10px}.principle-note{gap:25px}.speed-control{margin-left:4px}}
+@media(max-width:520px){.app{padding:0 17px}.top-meta{font-size:10px}.brand{font-size:13px}.brand-mark{width:23px}.intro{padding:22px 0 19px;align-items:flex-start}.intro h1{font-size:23px}.intro p{max-width:200px}.intro-actions{gap:5px;padding-top:23px}.intro-actions>.primary{width:35px;height:35px;padding:0;min-height:35px}.intro-actions>.primary span{display:none}.intro-actions>.icon-button{width:33px;height:35px}.eyebrow{font-size:9px}.bench{grid-template-columns:1fr}.input-panel{border-right:0;border-bottom:1px solid var(--line);padding:18px 0;display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.input-panel>.section-heading{grid-column:1/-1;margin-bottom:14px}.number-field{height:61px}.number-field input{font-size:36px}.number-field .range-label{font-size:9px;right:10px;top:10px}.field-error{min-height:23px;font-size:10px}.keypad{margin:7px 0 0;gap:5px}.digit-key{height:31px;font-size:13px}.input-settings{padding-top:3px}.input-settings>.subsection{margin-top:13px;padding-top:13px}.input-settings .segmented button{padding:5px;font-size:11px}.polarity-note{font-size:10px;margin-top:7px}.control-footer{grid-column:1/-1;margin-top:15px}.control-footer .command{flex:none;padding:5px 12px;min-height:31px;font-size:11px}.control-footer svg{width:14px;height:14px}.field-label{font-size:11px;margin-bottom:6px}.viewbar{height:51px;padding:0 6px}.view-stage,.device-view{min-height:322px}.device{width:194px}.callout{display:block;font-size:9px}.callout-a{left:12px;top:65px}.callout-dp{right:9px;bottom:38px}.display-readout{padding:13px 10px;min-height:55px;gap:24px}.readout-item{gap:7px;font-size:10px}.readout-item strong{font-size:16px}.output-panel{grid-column:auto;gap:0 19px;padding:18px 0}.section-heading h2{font-size:13px}.table-head,.segment-row{grid-template-columns:31px 1fr 24px 28px;gap:2px}.table-head{font-size:9px}.segment-row{font-size:9px;height:31px}.segment-name{font-size:11px;gap:5px}.pin-state{font-size:9px}.code-title{font-size:9px}.bit-labels{font-size:8px}.bits{gap:2px}.bit{font-size:11px;padding:4px 0}.hex-line{font-size:9px}.demo-section{padding:22px 0}.demo-header{margin-bottom:15px;gap:8px}.demo-title h2{font-size:14px}.demo-mode button{font-size:10px;padding:4px 8px;min-height:27px}.pipeline{grid-template-columns:1fr 1fr;gap:12px 18px}.phase{padding:12px 0 3px;min-height:100px}.phase:not(:first-child){padding-left:0}.phase:after{display:none}.phase-top{gap:8px}.phase h3{font-size:11px}.phase p{font-size:10px}.phase-value{font-size:11px}.player{gap:7px;padding:10px}.player .icon-button{width:31px;height:31px}.player-track{margin-left:0;min-width:100px;gap:6px}.player-position{font-size:10px;min-width:33px}.speed-control{width:100%;justify-content:flex-end;border-top:1px solid #d6e1d8;margin:3px 0 0;padding-top:7px}.principle-note{grid-template-columns:1fr;gap:16px;padding:17px 0}.principle-note p{font-size:10px}.note-title{font-size:11px}footer{font-size:9px;gap:12px}.circuit-view{padding:9px 10px}.circuit-svg{max-height:300px}.fullscreen .view-stage,.fullscreen .device-view{min-height:322px}.fullscreen .device{width:194px}}
+</style>
+</head>
+<body>
+<!-- Lucide icons, ISC license: https://lucide.dev/license -->
+<svg class="sprite" aria-hidden="true"><defs>
+<symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+<symbol id="i-next" viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><path d="M19 4v16"/></symbol>
+<symbol id="i-prev" viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><path d="M5 20V4"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></symbol>
+<symbol id="i-off" viewBox="0 0 24 24"><path d="M12 2v10m6.36-7.36a9 9 0 1 1-12.73 0"/></symbol>
+</defs></svg>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><svg class="brand-mark" viewBox="0 0 28 34" aria-hidden="true"><g fill="currentColor"><path d="m7 2 14 0 3 3-3 3H7L4 5Z"/><path d="m3 7 3 3v9l-3 3-3-3v-9Z"/><path d="m25 7 3 3v9l-3 3-3-3v-9Z"/><path d="m7 24 14 0 3 3-3 3H7l-3-3Z"/></g></svg><span>电子实验台</span></div>
+    <div class="top-meta"><span class="mono">DIGITAL ELECTRONICS / 01</span><span class="online">实验就绪</span></div>
+  </header>
+  <section class="intro">
+    <div><div class="eyebrow">EXPERIMENT 01 · SEVEN SEGMENTS + DP</div><h1>八段数码管</h1><p>从一个数字，到八路电平，再到光。</p></div>
+    <div class="intro-actions"><button id="start-demo" class="command primary" title="开始原理演示"><svg><use href="#i-play"/></svg><span>开始演示</span></button><button id="presentation" class="icon-button" title="切换演示视图" aria-label="切换演示视图" aria-pressed="false"><svg><use href="#i-expand"/></svg></button></div>
+  </section>
+  <main>
+    <section class="bench" aria-label="数码管交互实验">
+      <aside class="input-panel">
+        <div class="section-heading"><h2>数字输入</h2><span class="section-index">01 / INPUT</span></div>
+        <div class="input-numbers">
+          <label class="field-label" for="digit-input">十进制数字</label>
+          <div class="number-field" id="number-field"><input id="digit-input" type="text" inputmode="numeric" autocomplete="off" value="5" aria-describedby="input-error" aria-invalid="false"><span class="range-label">0–9</span></div>
+          <div class="field-error" id="input-error" aria-live="polite"></div>
+          <div class="keypad" id="keypad" aria-label="选择数字"></div>
+        </div>
+        <div class="input-settings">
+          <div class="toggle-row"><span>小数点 <span class="mono muted">dp</span></span><button id="dp-toggle" class="switch" role="switch" aria-checked="false" aria-label="小数点"></button></div>
+          <div class="subsection"><label class="field-label" id="polarity-label">数码管类型</label><div class="segmented" aria-labelledby="polarity-label"><button data-polarity="cathode" aria-pressed="true">共阴极</button><button data-polarity="anode" aria-pressed="false">共阳极</button></div><p class="polarity-note" id="polarity-note">公共端接 <strong>GND</strong><br>段引脚为<strong>高电平</strong>时，LED 点亮。</p></div>
+        </div>
+        <div class="control-footer"><button id="reset-all" class="command" title="恢复数字 5 和默认设置"><svg><use href="#i-reset"/></svg>复位</button><button id="blank" class="command" title="关闭全部八段"><svg><use href="#i-off"/></svg>全灭</button></div>
+      </aside>
+      <section class="display-panel" aria-label="数码管显示">
+        <div class="viewbar"><div class="view-tabs" role="tablist" aria-label="显示视图"><button id="device-tab" class="view-tab" role="tab" aria-selected="true" aria-controls="device-view" tabindex="0">器件视图</button><button id="circuit-tab" class="view-tab" role="tab" aria-selected="false" aria-controls="circuit-view" tabindex="-1">等效电路</button></div><span class="display-status"><span class="status-led"></span><span id="type-status">COMMON CATHODE</span></span></div>
+        <div class="view-stage">
+          <div class="device-view" id="device-view" role="tabpanel" aria-labelledby="device-tab">
+            <div class="callout callout-a"><span class="mono">a–g</span><br>七个笔画段</div>
+            <div class="device"><svg class="device-svg" viewBox="0 0 216 304" aria-label="显示数字 5，a、c、d、f、g 段点亮" id="display-svg">
+              <defs><filter id="led-glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="package" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#28392e"/><stop offset="1" stop-color="#17251e"/></linearGradient></defs>
+              <g fill="#98a79b" stroke="#738b79" stroke-width=".5"><path d="M27 0v-12h8V0m27 0v-12h8V0m27 0v-12h8V0m27 0v-12h8V0m27 0v-12h8V0"/><path d="M27 304v12h8v-12m27 0v12h8v-12m27 0v12h8v-12m27 0v12h8v-12m27 0v12h8v-12"/></g>
+              <rect x="1" y="1" width="214" height="302" rx="7" fill="url(#package)" stroke="#415647"/>
+              <rect x="9" y="9" width="198" height="286" rx="3" fill="#161e19" stroke="#36483b"/>
+              <g fill="#6d7f71" font-family="Consolas,monospace" font-size="7"><text x="18" y="26">8-SEG / LED DISPLAY</text><text x="18" y="283">a b c d e f g · dp</text></g>
+              <g id="segments"><path class="segment" data-segment="0" d="m53 47 87 0 11 10-12 10H54L43 57Z"/><path class="segment" data-segment="1" d="m146 65 10-9 10 11-8 67-12 11-9-11Z"/><path class="segment" data-segment="2" d="m136 155 11-10 10 11-8 68-12 11-9-10Z"/><path class="segment" data-segment="3" d="m43 229 86 0 10 10-12 10H40l-11-10Z"/><path class="segment" data-segment="4" d="m28 156 12-11 9 11-8 69-11 10-10-11Z"/><path class="segment" data-segment="5" d="m39 66 11-10 10 11-8 68-12 10-9-11Z"/><path class="segment" data-segment="6" d="m49 138 85 0 11 10-12 10H47l-11-10Z"/><circle class="segment" data-segment="7" cx="177" cy="240" r="10"/></g>
+              <g class="segment-label"><text x="99" y="43">a</text><text x="174" y="105">b</text><text x="165" y="195">c</text><text x="84" y="267">d</text><text x="12" y="195">e</text><text x="21" y="105">f</text><text x="98" y="132">g</text><text x="174" y="266" font-size="10">dp</text></g>
+            </svg></div>
+            <div class="callout callout-dp"><span class="mono">dp</span><br>独立小数点</div>
+            <div class="hover-label" id="hover-label"></div>
+          </div>
+          <div class="circuit-view" id="circuit-view" role="tabpanel" aria-labelledby="circuit-tab" hidden><svg class="circuit-svg" viewBox="0 0 390 330" aria-label="八个带独立限流电阻的 LED 并联电路" id="circuit-svg"><text x="15" y="17" class="circuit-text">PIN</text><text x="101" y="17" class="circuit-text">R</text><text x="199" y="17" class="circuit-text">LED</text><text x="306" y="17" class="circuit-text" id="common-label">COM / GND</text><path class="circuit-wire" d="M324 32V299"/><g id="circuit-branches"></g><path id="common-symbol" class="circuit-wire" d="M324 299v10m-12 0h24m-19 5h14m-10 5h6"/></svg><p class="circuit-caption" id="circuit-caption">传统电流方向：段引脚 → 限流电阻 → LED → GND</p></div>
+        </div>
+        <div class="display-readout" aria-live="polite"><div class="readout-item">显示值 <strong id="readout-digit">5</strong></div><div class="readout-item">点亮段数 <strong id="readout-count">5<span class="small muted"> / 8</span></strong></div><div class="readout-item" id="pattern-label">标准字形</div></div>
+      </section>
+      <aside class="output-panel">
+        <div class="section-heading output-heading"><h2>段码与电平</h2><span class="section-index">02 / OUTPUT</span></div>
+        <div class="output-table"><div class="table-head"><span>段</span><span>LED 状态</span><span>电平</span><span>通断</span></div><div id="segment-rows"></div></div>
+        <div class="code-block"><div class="code-title"><span>引脚输出码</span><span class="mono">MSB → LSB</span></div><div class="bit-labels"><span>dp</span><span>g</span><span>f</span><span>e</span><span>d</span><span>c</span><span>b</span><span>a</span></div><div class="bits" id="bits"></div><div class="hex-line"><span>十六进制</span><strong id="hex">0x6D</strong></div><p class="polarity-note" id="code-note">高电平 1 · 点亮<br>低电平 0 · 熄灭</p></div>
+      </aside>
+    </section>
+    <section class="demo-section" aria-label="工作原理演示">
+      <div class="demo-header"><div class="demo-title"><h2>一个数字，怎样被点亮？</h2><span>输入 → 译码 → 驱动 → 显示</span></div><div class="segmented demo-mode" aria-label="演示模式"><button data-mode="principle" aria-pressed="true">原理演示</button><button data-mode="cycle" aria-pressed="false">0–9 循环</button></div></div>
+      <div class="pipeline">
+        <div class="phase" data-phase="0"><div class="phase-top"><span class="phase-num">01</span><h3>数字输入</h3></div><p>确定要显示的十进制数字。</p><div class="phase-value" id="phase-input">DEC 5</div></div>
+        <div class="phase" data-phase="1"><div class="phase-top"><span class="phase-num">02</span><h3>字形译码</h3></div><p>将数字映射为对应的笔画段。</p><div class="phase-value" id="phase-decode">a · c · d · f · g</div></div>
+        <div class="phase" data-phase="2"><div class="phase-top"><span class="phase-num">03</span><h3>电平驱动</h3></div><p id="phase-drive-note">高电平点亮，低电平熄灭。</p><div class="phase-value" id="phase-drive">01101101</div></div>
+        <div class="phase active" data-phase="3"><div class="phase-top"><span class="phase-num">04</span><h3>组合显示</h3></div><p>各段独立发光，组合成字形。</p><div class="phase-value" id="phase-result">5 段点亮 → 数字 5</div></div>
+      </div>
+      <div class="player"><button class="icon-button play" id="play" title="播放演示" aria-label="播放演示"><svg><use href="#i-play"/></svg></button><button class="icon-button" id="previous" title="上一步" aria-label="上一步"><svg><use href="#i-prev"/></svg></button><button class="icon-button" id="next" title="下一步" aria-label="下一步"><svg><use href="#i-next"/></svg></button><button class="icon-button" id="restart" title="从头重播" aria-label="从头重播"><svg><use href="#i-reset"/></svg></button><div class="player-track"><input type="range" id="progress" min="0" max="10" step="1" value="10" aria-label="演示进度"><span class="player-position" id="position">10 / 10</span></div><label class="speed-control" for="speed">速度<select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div>
+    </section>
+    <section class="principle-note" aria-label="数码管原理说明"><div><h3 class="note-title">“八段”，是七个笔画加一个点。</h3><p>七个条形 LED 分别标记为 <span class="mono note-emphasis">a–g</span>，独立的小数点标记为 <span class="mono note-emphasis">dp</span>。每一段都是一颗可单独控制的 LED，不同点亮组合形成不同的数字。</p></div><div><h3 class="note-title" id="note-title">共阴极：公共阴极接地，高电平有效。</h3><p id="note-body">段引脚输出高电平时，电流经过限流电阻和 LED 流向公共阴极，形成正向导通。实际电路中，每一段都需要独立限流，并满足驱动器的电流能力。</p></div></section>
+  </main>
+  <footer><span>数字电子技术 · LED 数码显示</span><span class="mono">a b c d e f g + dp · 8 INDEPENDENT SEGMENTS</span></footer>
+</div>
+<script id="segment-model">
+globalThis.SegmentModel = (() => {
+  const masks = Object.freeze([0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f]);
+  const validate = value => typeof value === 'string' && /^[0-9]$/.test(value);
+  const decode = (value, dp = false) => {
+    if (!validate(value)) throw new RangeError('A single decimal digit is required');
+    return masks[Number(value)] | (dp ? 128 : 0);
+  };
+  const encode = (mask, polarity) => (mask & 255) ^ (polarity === 'anode' ? 255 : 0);
+  const recognize = mask => {
+    const index = masks.indexOf(mask & 127);
+    return index < 0 ? null : String(index);
+  };
+  return Object.freeze({decode,validate,encode,recognize});
+})();
+</script>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const names = ['a','b','c','d','e','f','g','dp'];
+  const model = SegmentModel;
+  const state = {mask:model.decode('5'),polarity:'cathode',mode:'principle',step:10,playing:false,speed:1,timer:null,view:'device',demo:false};
+  const icon = name => `<svg aria-hidden="true"><use href="#i-${name}"/></svg>`;
+  const visibleMask = () => {
+    if (!state.demo || state.mode === 'cycle' || state.step === 10) return state.mask;
+    if (state.step < 2) return 0;
+    return state.mask & ((1 << Math.min(state.step - 1,8)) - 1);
+  };
+  const clearError = () => {
+    $('number-field').classList.remove('invalid');
+    $('digit-input').setAttribute('aria-invalid','false');
+    $('input-error').textContent = '';
+  };
+  function pause() {
+    state.playing = false;
+    clearTimeout(state.timer);
+    state.timer = null;
+  }
+  function edit() { pause(); state.demo = false; state.step = 10; clearError(); }
+  function selectDigit(digit, preserveDp = true) {
+    state.mask = model.decode(String(digit),preserveDp && Boolean(state.mask & 128));
+    $('digit-input').value = String(digit);
+  }
+  function toggleSegment(bit) {
+    edit(); state.mask ^= 1 << bit;
+    const recognized = model.recognize(state.mask);
+    $('digit-input').value = recognized === null ? '' : recognized;
+    render();
+  }
+  $('keypad').innerHTML = Array.from({length:10},(_,digit) => `<button class="digit-key" data-digit="${digit}" aria-label="数字 ${digit}" aria-pressed="${digit === 5}">${digit}</button>`).join('');
+  $('segment-rows').innerHTML = names.map((name,bit) => `<div class="segment-row" data-row="${bit}"><span class="segment-name"><span class="segment-dot"></span>${name}</span><span class="pin-state">OFF</span><span class="level">0</span><button class="switch" role="switch" data-toggle="${bit}" aria-label="${name} 段" aria-checked="false"></button></div>`).join('');
+  $('bits').innerHTML = names.map(() => '<span class="bit">0</span>').join('');
+  $('circuit-branches').innerHTML = names.map((name,bit) => {
+    const y = 39 + bit * 35;
+    return `<g class="circuit-branch" data-branch="${bit}"><text x="15" y="${y+4}" class="circuit-text">${name}</text><text x="43" y="${y+4}" class="circuit-text pin-text">0</text><path class="circuit-wire" d="M68 ${y}H91l4-5 7 10 7-10 7 10 7-10 4 5H194m27 0H324"/><g class="diode-symbol" transform="translate(208 ${y})"><path class="circuit-led" d="M-12-8 2 0-12 8Z"/><path class="circuit-wire" d="M3-9V9M3 0H14m-6-8 7-7m-2 0h2v2m-4-1 7-7m-2 0h2v2"/></g><path class="circuit-current" d="M68 ${y}H192M224 ${y}H324"/><circle cx="324" cy="${y}" r="2.5" fill="#91a795"/></g>`;
+  }).join('');
+  function render() {
+    const actual = visibleMask();
+    const digit = model.recognize(actual);
+    const targetDigit = model.recognize(state.mask);
+    const anode = state.polarity === 'anode';
+    const code = model.encode(actual,state.polarity);
+    const targetCode = model.encode(state.mask,state.polarity);
+    const litNames = names.filter((_,bit) => actual & (1 << bit));
+    document.querySelectorAll('[data-segment]').forEach(segment => {
+      const on = Boolean(actual & (1 << Number(segment.dataset.segment)));
+      segment.classList.toggle('on',on);
+      segment.setAttribute('aria-pressed',String(on));
+    });
+    document.querySelectorAll('[data-row]').forEach(row => {
+      const bit = Number(row.dataset.row), on = Boolean(actual & (1 << bit)), high = Boolean(code & (1 << bit));
+      row.classList.toggle('lit',on);
+      row.querySelector('.pin-state').textContent = on ? 'ON' : 'OFF';
+      const level = row.querySelector('.level');
+      level.textContent = high ? '1' : '0'; level.classList.toggle('high',high);
+      row.querySelector('button').setAttribute('aria-checked',String(on));
+    });
+    document.querySelectorAll('[data-branch]').forEach(branch => {
+      const bit = Number(branch.dataset.branch);
+      branch.classList.toggle('on',Boolean(actual & (1 << bit)));
+      branch.querySelector('.pin-text').textContent = code & (1 << bit) ? 'H' : 'L';
+      branch.querySelector('.diode-symbol').setAttribute('transform',`translate(208 ${39+bit*35}) scale(${anode ? -1 : 1} 1)`);
+    });
+    const binary = code.toString(2).padStart(8,'0');
+    [...$('bits').children].forEach((bit,index) => {bit.textContent=binary[index];bit.classList.toggle('high',binary[index]==='1');});
+    $('hex').textContent = '0x' + code.toString(16).toUpperCase().padStart(2,'0');
+    $('readout-digit').textContent = digit === null ? (actual === 0 ? '—' : '自定义') : digit + (actual & 128 ? '.' : '');
+    $('readout-count').innerHTML = `${litNames.length}<span class="small muted"> / 8</span>`;
+    $('pattern-label').textContent = digit !== null ? '标准字形' : actual === 0 ? '全部熄灭' : '自定义字形';
+    $('display-svg').setAttribute('aria-label',`${digit === null ? '自定义字形' : '显示数字 '+digit}，${litNames.length ? litNames.join('、')+' 段点亮' : '全部熄灭'}`);
+    document.querySelectorAll('[data-digit]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.digit === targetDigit)));
+    $('dp-toggle').setAttribute('aria-checked',String(Boolean(actual & 128)));
+    document.querySelectorAll('[data-polarity]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.polarity === state.polarity)));
+    $('type-status').textContent = anode ? 'COMMON ANODE' : 'COMMON CATHODE';
+    $('polarity-note').innerHTML = anode ? '公共端接 <strong>VCC</strong><br>段引脚为<strong>低电平</strong>时，LED 点亮。' : '公共端接 <strong>GND</strong><br>段引脚为<strong>高电平</strong>时，LED 点亮。';
+    $('code-note').innerHTML = anode ? '低电平 0 · 点亮<br>高电平 1 · 熄灭' : '高电平 1 · 点亮<br>低电平 0 · 熄灭';
+    $('phase-input').textContent = targetDigit === null ? 'CUSTOM PATTERN' : 'DEC '+targetDigit;
+    $('phase-decode').textContent = names.filter((_,bit) => state.mask & (1 << bit)).join(' · ') || '全部熄灭';
+    $('phase-drive-note').textContent = anode ? '低电平点亮，高电平熄灭。' : '高电平点亮，低电平熄灭。';
+    const currentPin = state.demo && state.mode === 'principle' && state.step >= 2 && state.step <= 9 ? names[state.step-2] : null;
+    $('phase-drive').textContent = currentPin ? `${currentPin} → ${actual & (1 << (state.step-2)) ? 'ON' : 'OFF'} · ${binary}` : targetCode.toString(2).padStart(8,'0');
+    const targetCount = names.filter((_,bit) => state.mask & (1 << bit)).length;
+    $('phase-result').textContent = `${targetCount} 段点亮 → ${targetDigit === null ? '自定义' : '数字 '+targetDigit}`;
+    const phase = !state.demo || state.mode === 'cycle' || state.step === 10 ? 3 : state.step === 0 ? 0 : state.step === 1 ? 1 : 2;
+    document.querySelectorAll('[data-phase]').forEach(el => {const n=Number(el.dataset.phase);el.classList.toggle('active',n===phase);el.classList.toggle('done',n<phase);});
+    document.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.mode===state.mode)));
+    $('progress').max = state.mode === 'cycle' ? '9' : '10';
+    $('progress').value = state.mode === 'cycle' ? targetDigit || '0' : state.step;
+    $('position').textContent = state.mode === 'cycle' ? `${targetDigit || '0'} / 9` : `${state.step} / 10`;
+    $('play').innerHTML = icon(state.playing ? 'pause' : 'play');
+    $('play').title = state.playing ? '暂停演示' : '播放演示';
+    $('play').setAttribute('aria-label',$('play').title);
+    $('previous').disabled = state.mode === 'principle' && state.demo && state.step===0;
+    $('next').disabled = state.mode === 'principle' && state.step===10;
+    $('common-label').textContent = anode ? 'COM / VCC' : 'COM / GND';
+    $('common-symbol').setAttribute('d',anode ? 'M324 299v15m-6-6 6 6 6-6' : 'M324 299v10m-12 0h24m-19 5h14m-10 5h6');
+    $('circuit-view').classList.toggle('anode',anode);
+    $('circuit-caption').textContent = anode ? '传统电流方向：VCC → LED → 限流电阻 → 段引脚' : '传统电流方向：段引脚 → 限流电阻 → LED → GND';
+    $('note-title').textContent = anode ? '共阳极：公共阳极接电源，低电平有效。' : '共阴极：公共阴极接地，高电平有效。';
+    $('note-body').textContent = anode ? '公共阳极接电源，段引脚拉低时，电流由公共端经过 LED 和限流电阻流向段引脚。实际电路中，每一段都需要独立限流，并满足驱动器的灌电流能力。' : '段引脚输出高电平时，电流经过限流电阻和 LED 流向公共阴极，形成正向导通。实际电路中，每一段都需要独立限流，并满足驱动器的电流能力。';
+  }
+  function schedule() {
+    clearTimeout(state.timer);
+    if (!state.playing) return;
+    state.timer = setTimeout(() => {
+      if (state.mode === 'cycle') {
+        const next = ((Number(model.recognize(state.mask)) || 0)+1)%10;
+        if (window.__recording && next===0) {pause();render();return;}
+        selectDigit(next);
+      } else {
+        state.step = Math.min(10,state.step+1);
+        if (state.step===10) pause();
+      }
+      render();schedule();
+    },(state.mode==='cycle' ? 1200 : state.step===0 || state.step===1 ? 1100 : 700)/state.speed);
+  }
+  function play(fromStart=false) {
+    clearError();
+    if (state.mode==='cycle') {
+      if (fromStart || model.recognize(state.mask)===null) selectDigit(0);
+    } else if (fromStart || !state.demo || state.step===10) state.step=0;
+    state.demo=true;state.playing=true;render();schedule();
+  }
+  function showView(view) {
+    state.view=view;
+    ['device','circuit'].forEach(name => {
+      $(name+'-view').hidden = view!==name;
+      $(name+'-tab').setAttribute('aria-selected',String(view===name));
+      $(name+'-tab').tabIndex = view===name ? 0 : -1;
+    });
+  }
+  $('digit-input').addEventListener('input',event => {
+    pause();
+    const value=event.target.value;
+    if (!model.validate(value)) {
+      $('number-field').classList.add('invalid');
+      $('digit-input').setAttribute('aria-invalid','true');
+      $('input-error').textContent = value==='' ? '请输入一个 0–9 的数字' : '仅接受单个数字 0–9';
+      render();return;
+    }
+    edit();selectDigit(value);render();
+  });
+  $('keypad').addEventListener('click',event => {const button=event.target.closest('[data-digit]');if(button){edit();selectDigit(button.dataset.digit);render();}});
+  $('dp-toggle').addEventListener('click',() => toggleSegment(7));
+  document.querySelectorAll('[data-polarity]').forEach(button => button.addEventListener('click',() => {edit();state.polarity=button.dataset.polarity;render();}));
+  $('segment-rows').addEventListener('click',event => {const button=event.target.closest('[data-toggle]');if(button)toggleSegment(Number(button.dataset.toggle));});
+  document.querySelectorAll('[data-segment]').forEach(segment => {
+    const bit=Number(segment.dataset.segment);
+    segment.setAttribute('role','button');segment.setAttribute('tabindex','0');segment.setAttribute('aria-label',`切换 ${names[bit]} 段`);
+    segment.addEventListener('click',() => toggleSegment(bit));
+    segment.addEventListener('keydown',event => {if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSegment(bit);}});
+    segment.addEventListener('pointerenter',() => {$('hover-label').textContent=`${names[bit]} · ${visibleMask() & (1 << bit) ? '点亮' : '熄灭'}`;$('hover-label').classList.add('show');});
+    segment.addEventListener('pointerleave',() => $('hover-label').classList.remove('show'));
+  });
+  $('blank').addEventListener('click',() => {edit();state.mask=0;$('digit-input').value='';render();});
+  $('reset-all').addEventListener('click',() => {edit();state.polarity='cathode';state.mode='principle';state.speed=1;$('speed').value='1';selectDigit(5,false);showView('device');render();});
+  ['device','circuit'].forEach(name => $(name+'-tab').addEventListener('click',() => showView(name)));
+  document.querySelector('.view-tabs').addEventListener('keydown',event => {
+    if(event.key==='ArrowLeft'||event.key==='ArrowRight'||event.key==='Home'||event.key==='End') {
+      event.preventDefault();const view=event.key==='Home'?'device':event.key==='End'?'circuit':state.view==='device'?'circuit':'device';showView(view);$(view+'-tab').focus();
+    }
+  });
+  $('start-demo').addEventListener('click',() => {pause();state.mode='principle';play(true);});
+  $('play').addEventListener('click',() => {if(state.playing){pause();render();}else play();});
+  $('restart').addEventListener('click',() => {pause();play(true);});
+  function step(direction) {
+    pause();clearError();state.demo=true;
+    if(state.mode==='cycle')selectDigit(((Number(model.recognize(state.mask))||0)+direction+10)%10);
+    else state.step=Math.max(0,Math.min(10,state.step+direction));
+    render();
+  }
+  $('previous').addEventListener('click',() => step(-1));
+  $('next').addEventListener('click',() => step(1));
+  $('progress').addEventListener('input',event => {pause();clearError();state.demo=true;if(state.mode==='cycle')selectDigit(event.target.value);else state.step=Number(event.target.value);render();});
+  $('speed').addEventListener('change',event => {state.speed=Number(event.target.value);if(state.playing)schedule();});
+  document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click',() => {pause();state.demo=false;state.step=10;state.mode=button.dataset.mode;render();}));
+  $('presentation').addEventListener('click',() => {
+    const on=document.body.classList.toggle('fullscreen');
+    $('presentation').setAttribute('aria-pressed',String(on));
+    $('presentation').title=on?'退出演示视图':'切换演示视图';
+  });
+  document.addEventListener('keydown',event => {
+    if (event.key==='Escape') {document.body.classList.remove('fullscreen');$('presentation').setAttribute('aria-pressed','false');}
+  });
+  document.addEventListener('visibilitychange',() => {if(document.hidden&&state.playing){pause();render();}});
+  render();
+  requestAnimationFrame(() => {window.__ready=true;});
+})();
+</script>
+</body>
+</html>
